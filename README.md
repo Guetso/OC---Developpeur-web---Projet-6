@@ -18,3 +18,11 @@ Pour pouvoir utiliser l'API, vous pouvez cloner ce [répertoire Github](https://
 * MongoDB
 * Mongoose
 
+### Objectifs de la mission
+Créer l'API de l'application "Piquante" permettant aux utilisateurs de l'application d'ajouter leur sauces préférées et de "liker" ou "disliker" les sauces ajoutées par les autres utilisateurs.
+
+### Compétences évaluées
+* Stocker des données de manière sécurisée
+* Mettre en œuvre des opérations CRUD de manière sécurisée
+* Implémenter un modèle logique de données conformément à la réglementation
+
