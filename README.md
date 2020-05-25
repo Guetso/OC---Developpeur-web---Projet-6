@@ -3,7 +3,9 @@
 
 Ce projet est réalisé dans le cadre du parcours **Développeur Web** du site [OpenClassrooms](https://openclassrooms.com/ "OpenClassrooms")
 
-![Logo So Pekocko](logo.png)
+![Logo So Pekocko](docs/logo.png)
 
-
+### Documentations
+* [Note de cadrage](docs/cadrage.pdf)
+* Guidelines API
 
