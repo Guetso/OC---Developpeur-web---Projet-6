@@ -3,9 +3,11 @@
 const Sauce = require('../models/Sauce')
 
 exports.createSauce = (req, res, next) => {
-  delete req.body.userId
+  const thingObject = JSON.parse(req.body.thing)
+  delete thingObject.userId
   const sauce = new Sauce({
-    ...req.body,
+    ...thingObject,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   })
   sauce
     .save()
