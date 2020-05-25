@@ -1,5 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+
+const Sauce = require('./models/Sauce')
+
+mongoose
+  .connect(
+    'mongodb+srv://Guetso:polo2068@cluster0-uzjno.mongodb.net/piquante?retryWrites=true&w=majority',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'))
 
 const app = express()
 
@@ -18,45 +29,39 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json())
 
-app.post('/api/sauces', (req, res, next)=>{
-    console.log(req.body)
-    res.status(201).json({
-        message : 'sauce créée'
-    })
+app.post('/api/sauces', (req, res, next) => {
+  delete req.body.userId
+  const sauce = new Sauce({
+    ...req.body,
+  })
+  sauce
+    .save()
+    .then(() => res.status(201).json({ message: 'Sauce enregistrée !' }))
+    .catch((error) => res.status(400).json({ error }))
 })
 
-app.use('/api/sauces', (req, res, next) => {
-  const sauces = [
-    {
-      _id: '001',
-      name: 'Béarnaise',
-      manufacturer: 'Moi',
-      description: 'La meilleure des sauces',
-      heat: 3,
-      likes: 0,
-      dislikes: 0,
-      imageUrl: '',
-      mainPepper: '',
-      usersLiked: '',
-      usersDisliked: '',
-      userId: '101',
-    },
-    {
-      _id: '002',
-      name: 'Tartare',
-      manufacturer: 'Moi',
-      description: 'La 2nd meilleure des sauces',
-      heat: 2,
-      likes: 0,
-      dislikes: 0,
-      imageUrl: '',
-      mainPepper: '',
-      usersLiked: '',
-      usersDisliked: '',
-      userId: '101',
-    },
-  ]
-  res.status(200).json(sauces)
+app.put('/api/sauces/:id', (req, res, next) => {
+  Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Sauce modifié !' }))
+    .catch((error) => res.status(400).json({ error }))
+})
+
+app.delete('/api/sauces/:id', (req, res, next) => {
+  Sauce.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Sauce supprimé !'}))
+    .catch(error => res.status(400).json({ error }));
+});
+
+app.get('/api/sauces/:id', (req, res, next) => {
+  Sauce.findOne({ _id: req.params.id })
+    .then((thing) => res.status(200).json(thing))
+    .catch((error) => res.status(404).json({ error }))
+})
+
+app.get('/api/sauces', (req, res, next) => {
+  Sauce.find()
+    .then((sauces) => res.status(200).json(sauces))
+    .catch((error) => res.status(400).json({ error }))
 })
 
 module.exports = app
