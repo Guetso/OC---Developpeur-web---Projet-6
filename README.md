@@ -7,5 +7,5 @@ Ce projet est réalisé dans le cadre du parcours **Développeur Web** du site [
 
 ### Documentations
 * [Note de cadrage](docs/cadrage.pdf)
-* Guidelines API
+* [Guidelines API](docs/guidelines.pdf)
 
