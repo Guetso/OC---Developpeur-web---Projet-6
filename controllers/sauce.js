@@ -18,14 +18,22 @@ exports.createSauce = (req, res, next) => {
 }
 
 exports.modifySauce = (req, res, next) => {
-  const sauceObject = req.file
-    ? {
-        ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body }
+  let sauceObject = 0
+  if (req.file) {
+    Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+      const filename = sauce.imageUrl.split('/images/')[1]
+      fs.unlinkSync(`images/${filename}`)
+    })
+    sauceObject = {
+      ...JSON.parse(req.body.sauce),
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${
+        req.file.filename
+      }`,
+    }
+  } else {
+    sauceObject = { ...req.body }
+  }
+
   Sauce.updateOne(
     { _id: req.params.id },
     { ...sauceObject, _id: req.params.id }
