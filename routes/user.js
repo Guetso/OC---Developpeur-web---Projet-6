@@ -1,3 +1,5 @@
+// Contient les fonctions qui s'appliquent aux différentes routes pour les utilisateurs
+
 const express = require('express')
 const router = express.Router()
 

@@ -1,3 +1,5 @@
+// L'application en elle même qui va faire appelle aux différentes fonctions implémentées dans l'APi : Accès aux images, aux route User, aux route Sauces
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -36,4 +38,4 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use('/api/sauces', sauceRoutes)
 app.use('/api/auth', userRoutes)
 
-module.exports = app
+module.exports = app // L'application est exporté pour être 'servi' par le serveur
