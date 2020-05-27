@@ -26,7 +26,7 @@ Créer l'API de l'application "Piquante" permettant aux utilisateurs de l'applic
 * Mettre en œuvre des opérations CRUD de manière sécurisée
 * Implémenter un modèle logique de données conformément à la réglementation
 
-### Serveur de dévolepement 
+### Serveur de développement 
 
 Pour utiliser le serveur, chargez le package nodemon :
 

@@ -1,10 +1,12 @@
-// Contient la logique métier concernant les utilisateurs, à appliquer aux différentes route CRUD (ici uniquement POST)
+// Contient la logique métier concernant les utilisateurs, à appliquer aux différentes routes CRUD (ici uniquement POST)
 
 const bcrypt = require('bcrypt') // On fait appel à bcrypt pour hasher le mot de passe
 const jwt = require('jsonwebtoken') // On fait appel à JsonWebToken pour attribuer un TOKEN à un utilisateur quand il se connecte
 const User = require('../models/User') // On fait appel à notre modèle 'User'
+const config = require('../config/auth.config') // On récupère la clé pour le TOKEN
 
 exports.signup = (req, res, next) => {
+  // Pour la création d'un nouvel utilisateur
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -21,6 +23,7 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+  // Pour la connection à son compte utilisateur
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
@@ -33,12 +36,12 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' })
           }
           res.status(200).json({
-              userId: user._id,
-              token: jwt.sign(
-                  { userId: user._id},
-                  'RANDOM_TOKEN_SECRET',
-                  { expiresIn: '24h'}
-              )
+            userId: user._id,
+            token: jwt.sign(
+              { userId: user._id }, // le payload du TOKEN, userdID nécéssaire dans le cas où une requête transmettrait un userId (ex: création d'une sauce)
+              config.secret, // Clé d'encodage
+              { expiresIn: '24h' } // Date d'expiration du TOKEN 24h
+            ),
           })
         })
         .catch((error) => res.status(500).json({ error }))

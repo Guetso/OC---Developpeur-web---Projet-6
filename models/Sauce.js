@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true)
+const Counter = require('../models/Counter')
 
 const sauceSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -9,10 +10,10 @@ const sauceSchema = mongoose.Schema({
   imageUrl: { type: String, required: true },
   mainPepper: { type: String, required: true },
   userId: { type: String, required: true },
-  likes: { type: Number },
-  dislikes: { type: Number },
   usersLiked: { type: [String] },
   usersDisliked: { type: [String] },
+  likes: { type: Number, default:0},
+  dislikes: { type: Number, default:0 },
 })
 
 module.exports = mongoose.model('Sauce', sauceSchema)
