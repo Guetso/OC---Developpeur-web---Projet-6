@@ -8,7 +8,7 @@ const config = require('../config/auth.config') // On récupère la clé pour le
 exports.signup = (req, res, next) => {
   // Pour la création d'un nouvel utilisateur
   bcrypt
-    .hash(req.body.password, 10)
+    .hash(req.body.password, 10) // Le chiffre '10' indique le nombre de salage du MDP
     .then((hash) => {
       const user = new User({
         email: req.body.email,
@@ -38,7 +38,7 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             userId: user._id,
             token: jwt.sign(
-              { userId: user._id }, // le payload du TOKEN, userdID nécéssaire dans le cas où une requête transmettrait un userId (ex: création d'une sauce)
+              { userId: user._id }, // le payload du TOKEN, userdID nécéssaire dans le cas où une requête transmettrait un userId (création, modification...)
               config.secret, // Clé d'encodage
               { expiresIn: '24h' } // Date d'expiration du TOKEN 24h
             ),

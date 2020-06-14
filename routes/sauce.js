@@ -1,7 +1,7 @@
 // Contient les fonctions qui s'appliquent aux différentes routes pour les sauces
 
 const express = require('express') // Nécessaire pour utiliser le router d'Express
-const router = express.Router() // On appelle le routeur d'Express
+const router = express.Router() // On appelle le routeur d'Express pour pouvoir déporter notre logique de routing dans ce fichier
 
 const sauceCtrl = require('../controllers/sauce') // Récupère les logiques métiers à appliquer à chaque route du CRUD
 const auth = require('../middleware/auth') // Récupère notre configuration d'authentification JsonWebToken
