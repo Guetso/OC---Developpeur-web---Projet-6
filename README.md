@@ -28,9 +28,9 @@ Créer l'API de l'application "Piquante" permettant aux utilisateurs de l'applic
 
 ### Serveur de développement 
 
-Pour utiliser le serveur, chargez le package nodemon :
+Pour utiliser le serveur, chargez les packages nécessaires :
 
-    npm install -g nodemon
+    npm install 
 
 Puis lancez le serveur:
 
