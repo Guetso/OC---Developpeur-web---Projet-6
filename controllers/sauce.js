@@ -79,7 +79,7 @@ exports.getAllSauce = (req, res, next) => {
 }
 
 exports.addLikeDislike = (req, res, next) => {
-  // Pour la route READ = Ajout/suppression d'un like / dislike à une sauce
+  // Pour la route POST = Ajout/suppression d'un like / dislike à une sauce
   const like = req.body.like
   const user = req.body.userId
   const sauceId = req.params.id

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true)
-const Counter = require('../models/Counter')
 
 const sauceSchema = mongoose.Schema({
   name: { type: String, required: true },
