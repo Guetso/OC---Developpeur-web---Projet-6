@@ -3,6 +3,7 @@
 const express = require('express')
 const bodyParser = require('body-parser') // Pour faciliter le traitement des données contenues dans le corp de la reqûete, le transformant en objet JSON
 const mongoose = require('mongoose') // L'interface pour communiquer avec la BDD
+const mongooseConfig= require('./config/mongoose.config')
 const path = require ('path') // Pour le middleware express static pour acceder au chemin du système de fichier
 
 const sauceRoutes = require('./routes/sauce')
@@ -10,7 +11,7 @@ const userRoutes = require('./routes/user')
 
 mongoose
   .connect(
-    'mongodb+srv://GuetsoDatas:My2uO7tTmnzCljYW@cluster0-uzjno.mongodb.net/piquante?retryWrites=true&w=majority',
+    `mongodb+srv://${mongooseConfig.id}:${mongooseConfig.pwd}@cluster0-uzjno.mongodb.net/piquante?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log('Connexion à MongoDB réussie !'))
